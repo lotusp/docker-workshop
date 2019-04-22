@@ -1,10 +1,6 @@
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route("/")
-def hello():
-    return "Hello World!"
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int("5000"))
+FROM python:alpine3.7
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
+EXPOSE 8080
+CMD python ./app.py
