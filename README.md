@@ -69,6 +69,22 @@ Check whether the process in docker container is working fine:
 
 ## Install Nexus as docker registry
 
+### Install by distribution archive file:
+Reference: [https://help.sonatype.com/repomanager2/installing-and-running/installing]
+
+Download Nexus Repository Manager OSS distribution:
+
+	wget https://sonatype-download.global.ssl.fastly.net/repository/repositoryManager/3/nexus-3.16.1-02-unix.tar.gz
+
+	tar xvzf nexus-3.16.1-02-unix.tar.gz
+
+	sudo cp -rf ~/nexus-3.16.1-02 ./
+
+	sudo ln -s nexus-3.16.1-02 nexus
+
+	sudo ./bin/nexus start
+
+### Install by docker image
 Reference: [https://blog.sonatype.com/sonatype-nexus-installation-using-docker]
 
 Pull docker image of nexus:
@@ -86,6 +102,8 @@ Reference: [https://blog.sonatype.com/using-nexus-3-as-your-repository-part-3-do
 ## Push image
 
 	docker tag docker-workshop:tag02 127.0.0.1:8082/docker-workshop:tag02
+
+	docker login -u admin -p admin123 127.0.0.1:8082
 
 	docker push 127.0.0.1:8082/docker-workshop:tag02
 
