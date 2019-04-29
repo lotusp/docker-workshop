@@ -30,7 +30,7 @@ List images:
 
 Create a container using docker image **docker-workshop:tag01**:
 
-	docker run -d --name docker-workshop-01 docker-workshop:tag01
+	docker run -d --name docker-workshop-01 -p 8080:5000 docker-workshop:tag01
 
 Check docker container status:
 
@@ -50,7 +50,7 @@ Modify the Dockerfile to use new image:
 	FROM python-with-flask
 	COPY . /app
 	WORKDIR /app
-	EXPOSE 8080
+	EXPOSE 5000
 	CMD python ./app.py
 	
 
@@ -60,7 +60,7 @@ Build new image:
 
 Create a container using docker image **docker-workshop:tag01**:
 
-	docker run -d --name docker-workshop-02 docker-workshop:tag02
+	docker run -d --name docker-workshop-02 -p 8080:5000 docker-workshop:tag02
 
 Check whether the process in docker container is working fine:
 
@@ -95,11 +95,16 @@ Start docker container:
 
 	docker run -d --name nexus-docker-registry -p 8081:8081 -p 8082:8082 -p 8083:8083 sonatype/nexus
 
+Note:
+- 8081: the port which nexus listen on
+- 8082: the port we will configure for the private docker repository
+- 8083: the port we will configure for the docker repository group
+
 ## Configure nexus, configure docker registry, login, push image
 
 Reference: [https://blog.sonatype.com/using-nexus-3-as-your-repository-part-3-docker-images]
 
-## Push image
+## Push image to the private docker repository
 
 	docker tag docker-workshop:tag02 127.0.0.1:8082/docker-workshop:tag02
 
