@@ -40,6 +40,33 @@ Check whether the process in docker container is working fine:
 
 	curl http://127.0.0.1:8080
 
+## Add a volume to save data or logs
+Update app.py to print some logs:
+
+	if __name__ == "__main__":
+	    logging.basicConfig(filename='./log/app.log',level=logging.DEBUG)
+	    logging.info('Hello World!')
+	    app.run(host="0.0.0.0", port=int("5000"))
+
+Build image and run:
+
+	docker build -t docker-workshop:tag02 .
+
+	docker run -d --name docker-workshop-02 -p 8080:5000 -v /home/maguangguang/training/docker-workshop/log:/app/log docker-workshop:tag02
+
+## Connect to database in host machine
+Update Dockerfile to run the script: db_connector.py
+Build image:
+
+	docker build -t docker-workshop-db:tag01 .
+
+Run using host network (only work for linux):
+
+	docker run -d --name docker-workshop-db-01 --network host docker-workshop-db:tag01
+
+Or we can use host IP directly to access database in host machine.
+
+
 ## Create a new base docker image
 Build a new image based on python image:
 
@@ -115,3 +142,4 @@ Reference: [https://blog.sonatype.com/using-nexus-3-as-your-repository-part-3-do
 ## Pull image
 
 	docker pull 127.0.0.1:8082/docker-workshop:tag02
+
